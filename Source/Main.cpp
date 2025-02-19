@@ -5,7 +5,8 @@
 #include "ArrayTransformers/ArrayIntersector.hpp"
 #include "Spawn/ArrayIntersectorSpawner.hpp"
 #include "ArrayTransformers/ArrayDistinctor.hpp"
-#include "Spawn/ConsecutiveATS.hpp"
+#include "Spawn/ArraySorterSpawner.hpp"
+#include "Spawn/ArrayDistinctorSpawner.hpp"
 
 std::int32_t main(std::int32_t argc, char** argv)
 {
@@ -34,15 +35,15 @@ std::int32_t main(std::int32_t argc, char** argv)
 
     std::unique_ptr<ArrayTransformerSpawner<Type>> spawner
     {
-        new ArrayIntersectorSpawner<Type>{ collection }
+        new ArryDistinctorSpawner<Type>{ collection }
     };
 
-    std::unique_ptr<ArrayTransformer<Type>> intersector
+    std::unique_ptr<ArrayTransformer<Type>> distinctor
     {
         spawner->GetArrayTransformer()
     };
 
-    const auto array{ intersector->ExecuteTransformation() };
+    const auto array{ distinctor->ExecuteTransformation() };
 
     for (const Type& value : array)
     {

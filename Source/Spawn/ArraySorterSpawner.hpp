@@ -1,7 +1,5 @@
 #pragma once
 
-#include <type_traits>
-
 #include "ArrayTransformerSpawner.hpp"
 #include "ArrayTransformers/ArraySorter.hpp"
 
