@@ -11,7 +11,7 @@ class ArrayTransformer
 
 public:
     using Array = std::vector<_Type>;
-    using ArrayCollection = std::vector<Array>;
+    using ArrayCollection = std::vector<std::reference_wrapper<const Array>>;
 
 public:
     ArrayTransformer() = default;

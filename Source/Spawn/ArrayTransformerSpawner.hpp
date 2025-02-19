@@ -10,6 +10,7 @@ class ArrayTransformerSpawner
 {
 public:
     using ArrTrans = ArrayTransformer<_ArrTransType>;
+    using Array = typename ArrTrans::Array;
     using ArrayCollection = typename ArrTrans::ArrayCollection;
 
 public:
@@ -35,4 +36,5 @@ ArrayTransformerSpawner<_ArrTransType>::ArrayTransformerSpawner
 #define ATSUsings \
     using Base = ArrayTransformerSpawner<_ArrTransType>; \
     using ArrTrans = typename Base::ArrTrans; \
+    using Array = typename Base::Array; \
     using ArrayCollection = typename Base::ArrayCollection;

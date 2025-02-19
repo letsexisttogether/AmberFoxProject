@@ -25,7 +25,7 @@ public:
     ArrayDistinctor& operator = (ArrayDistinctor&&) = default;
 
 private:
-    const ArrayCollection& m_ArrayCollection; 
+    const ArrayCollection m_ArrayCollection; 
 };
 
 template <class _Type>

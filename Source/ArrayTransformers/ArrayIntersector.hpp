@@ -26,7 +26,7 @@ public:
     ArrayIntersector& operator = (ArrayIntersector&&) = default;
 
 private:
-    const ArrayCollection& m_ArrayCollection; 
+    const ArrayCollection m_ArrayCollection; 
 };
 
 template <class _Type>
