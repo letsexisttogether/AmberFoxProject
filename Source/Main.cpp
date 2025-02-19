@@ -8,39 +8,52 @@ std::int32_t main(std::int32_t argc, char** argv)
     std::cout << "Hello, AmberFoxStudio" << std::endl;
 
     using Type = std::int32_t;
+    using Array = std::vector<Type>;
 
-    std::vector<Type> array
+    const Array small 
     {
         5, 1, 3, 2, 6, 1, 4
     };
+    const Array mid 
+    {
+        10, 3, 150, 308, 11
+    };
+    const Array big 
+    {
+        600, 300, 5, 1500, 1, 17, 2000, 2, 17000
+    };
 
-    std::cout << "Breakes here #1" << std::endl;
     ArrayTransformerSpawner<Type>::ArrayCollection collection
     {
-        ArrayTransformerSpawner<Type>::ArrayPointer{ &array }
+        std::move(small),
+        std::move(mid),
+        std::move(big),
     };
 
-    std::cout << "Breakes here #2" << std::endl;
     std::unique_ptr<ArrayTransformerSpawner<Type>> sorterSpawner
     {
-        new ConsecutiveATS<Type, ArraySorter<Type>>{ collection }
+        new ArraySorterSpawner<Type>{ collection }
     };
 
-    std::cout << "Breakes here #3" << std::endl;
-    std::unique_ptr<ArrayTransformer<Type>> sorter
+    std::unique_ptr<ArrayTransformer<Type>> sorter1
+    { 
+        sorterSpawner->GetArrayTransformer() 
+    };
+    std::unique_ptr<ArrayTransformer<Type>> sorter2
+    { 
+        sorterSpawner->GetArrayTransformer() 
+    };
+    std::unique_ptr<ArrayTransformer<Type>> sorter3
     { 
         sorterSpawner->GetArrayTransformer() 
     };
 
-    std::cout << "Breakes here #4" << std::endl;
-    array = std::move(sorter->ExecuteTransformation());
+    const Array array = sorter3->ExecuteTransformation();
 
     for (const Type& item : array)
     {
         std::cout << item << ' ';
     }
-
-    std::cout << "\nThe end " << std::endl;
 
     return EXIT_SUCCESS;
 }

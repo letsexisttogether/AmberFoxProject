@@ -10,31 +10,29 @@ class ArrayTransformerSpawner
 {
 public:
     using ArrTrans = ArrayTransformer<_ArrTransType>;
-    using ArrayPointer = typename ArrTrans::Array*;
-    using ArrayCollection = std::vector<ArrayPointer>;
+    using ArrayCollection = typename ArrTrans::ArrayCollection;
 
 public:
     ArrayTransformerSpawner() = delete;
 
-    ArrayTransformerSpawner(const ArrayCollection& arrays);
+    ArrayTransformerSpawner(const ArrayCollection& collection);
     
     virtual ~ArrayTransformerSpawner() = default;
 
     virtual ArrTrans* GetArrayTransformer() noexcept = 0;
 
 protected:
-    ArrayCollection m_Arrays;
+    const ArrayCollection& m_ArrayCollection;
 };
 
 
 template <class _ArrTransType>
 ArrayTransformerSpawner<_ArrTransType>::ArrayTransformerSpawner
-    (const ArrayCollection& arrays)
-    : m_Arrays{ arrays }
+    (const ArrayCollection& collection)
+    : m_ArrayCollection{ collection }
 {}
 
 #define ATSUsings \
     using Base = ArrayTransformerSpawner<_ArrTransType>; \
     using ArrTrans = typename Base::ArrTrans; \
-    using ArrayPointer = typename Base::ArrayPointer; \
     using ArrayCollection = typename Base::ArrayCollection;

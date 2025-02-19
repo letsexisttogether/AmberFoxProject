@@ -11,8 +11,7 @@ class ArrayTransformer
 
 public:
     using Array = std::vector<_Type>;
-    using ArrayPointer = Array*;
-    using ArrayCollection = std::vector<ArrayPointer>;
+    using ArrayCollection = std::vector<Array>;
 
 public:
     ArrayTransformer() = default;
@@ -25,5 +24,4 @@ public:
 #define ATUsings \
     using Base = ArrayTransformer<_Type>; \
     using Array = typename Base::Array; \
-    using ArrayPointer = typename Base::ArrayPointer; \
     using ArrayCollection = typename Base::ArrayCollection;

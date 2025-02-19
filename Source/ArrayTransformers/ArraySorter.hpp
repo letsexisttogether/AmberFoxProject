@@ -15,7 +15,7 @@ public:
     ArraySorter(const ArraySorter&) = default;
     ArraySorter(ArraySorter&&) = default;
 
-    ArraySorter(const ArrayPointer array);
+    ArraySorter(const Array& array);
 
     ~ArraySorter() = default;
 
@@ -25,12 +25,12 @@ public:
     ArraySorter& operator = (ArraySorter&&) = default;
 
 private:
-    ArrayPointer m_Array; 
+    const Array& m_Array; 
 };
 
 
 template <class _Type>
-ArraySorter<_Type>::ArraySorter(const ArrayPointer array)
+ArraySorter<_Type>::ArraySorter(const Array& array)
     : m_Array{ array }
 {}
 
@@ -38,7 +38,7 @@ template <class _Type>
 typename ArraySorter<_Type>::Array ArraySorter<_Type>::ExecuteTransformation()
     noexcept
 {
-    Array copy{ *m_Array };
+    Array copy{ m_Array };
 
     std::sort(copy.begin(), copy.end());
 

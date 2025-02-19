@@ -3,8 +3,8 @@
 #include <iostream>
 #include <type_traits>
 
-#include "ArrayTransformers/ArrayTransformer.hpp"
 #include "Spawn/ArrayTransformerSpawner.hpp"
+#include "ArrayTransformers/ArraySorter.hpp"
 
 template <class _ArrTransType, class _ArrayTransformer>
 class ConsecutiveATS : public ArrayTransformerSpawner<_ArrTransType>
@@ -17,7 +17,7 @@ public:
 
 public:
     ConsecutiveATS() = delete;
-    ConsecutiveATS(const ArrayCollection& arrays);
+    ConsecutiveATS(const ArrayCollection& collection);
 
     ~ConsecutiveATS() = default;
 
@@ -29,8 +29,8 @@ private:
 
 template <class _ArrTransType, class _ArrayTransformer>
 ConsecutiveATS<_ArrTransType, _ArrayTransformer>::ConsecutiveATS
-    (const ArrayCollection& arrays)
-    : Base{ arrays }
+    (const ArrayCollection& collection)
+    : Base{ collection }
 {}
 
 template <class _ArrTransType, class _ArrayTransformer>
@@ -38,21 +38,19 @@ typename ConsecutiveATS<_ArrTransType, _ArrayTransformer>::ArrTrans*
     ConsecutiveATS<_ArrTransType, _ArrayTransformer>::GetArrayTransformer()
     noexcept
 {
-    std::cout << this->m_Arrays.size();
-
-    if (this->m_Arrays.empty())
+    if (this->m_ArrayCollection.empty())
     {
         return nullptr;
     }
 
     ArrTrans* arrayTransformer = new _ArrayTransformer
     {
-        this->m_Arrays[m_Iterator]
+        this->m_ArrayCollection[m_Iterator]
     };
 
     ++m_Iterator;
 
-    if (m_Iterator == this->m_Arrays.size())
+    if (m_Iterator == this->m_ArrayCollection.size())
     {
         m_Iterator = 0;
     }
@@ -60,9 +58,6 @@ typename ConsecutiveATS<_ArrTransType, _ArrayTransformer>::ArrTrans*
     return arrayTransformer;
 }
 
-/*
 template <class _ArrTransType>
-using ArraySorterSpawner = ConsecutiveATS<_ArrTransType, 
-*/
-
-#undef ATSUsings
+using ArraySorterSpawner = ConsecutiveATS<_ArrTransType,
+    ArraySorter<_ArrTransType>>;
