@@ -2,7 +2,6 @@
 
 #include <type_traits>
 #include <vector>
-#include <memory>
 
 template <class _Type>
 class ArrayTransformer
@@ -12,7 +11,7 @@ class ArrayTransformer
 
 public:
     using Array = std::vector<_Type>;
-    using ArrayPointer = std::shared_ptr<Array>;
+    using ArrayPointer = Array*;
     using ArrayCollection = std::vector<ArrayPointer>;
 
 public:

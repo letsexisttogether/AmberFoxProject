@@ -10,7 +10,7 @@ class ArrayTransformerSpawner
 {
 public:
     using ArrTrans = ArrayTransformer<_ArrTransType>;
-    using ArrayPointer = std::shared_ptr<typename ArrTrans::Array>;
+    using ArrayPointer = typename ArrTrans::Array*;
     using ArrayCollection = std::vector<ArrayPointer>;
 
 public:
