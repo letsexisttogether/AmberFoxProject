@@ -13,6 +13,8 @@ Application::Application(FileReader&& reader)
 
 std::int32_t Application::Application::Run() noexcept
 {
+    PrintGreetings();
+
     if (!ReadTask())
     {
         return EXIT_FAILURE;
@@ -36,12 +38,14 @@ bool Application::ReadTask() noexcept
     }
 
     m_RawCollection = m_FileReader.ReadFile();
-    m_Collection.reserve(m_RawCollection.size());
-
-    if (m_Collection.size() != 3)
+    if (m_RawCollection.size() != 3)
     {
         std::cerr << "[Error] The number of the arrays must be 3" << std::endl;
+
+        return false;
     }
+
+    m_Collection.reserve(m_RawCollection.size());
     
     std::cout << "\nThe next arrays were found:\n";
     for (const Array& array : m_RawCollection)
@@ -92,7 +96,7 @@ void Application::IntersectTask() const noexcept
         intersectorSpawner->GetArrayTransformer()
     };
     const Array firstArray{ longestArraysIntersector->ExecuteTransformation() };
-    CollectionPrinter::PrintArray(firstArray, "Longest two arrays: ");
+    CollectionPrinter::PrintArray(firstArray, "Two longest arrays: ");
 
     std::unique_ptr<ArrayTransformer> allArraysIntersector
     {
@@ -127,5 +131,13 @@ void Application::DistinctTask() const noexcept
 
 void Application::PrintGreetings() const noexcept
 {
-
+    std::cout << R"(
++----------------------------------+
+|                                  |
+|   Dedicated to                   |
+|       AmberFoxStudio             |
+|          by Alex Chernenko       |
+|                                  |
++----------------------------------+
+    )" << std::endl; 
 }
