@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ArrayTransformerSpawner.hpp"
-#include "ArrayTransformers/ArraySorter.hpp"
+#include "Transform/ArraySorter.hpp"
 
 template <class _ArrTransType>
 class ArraySorterSpawner : public ArrayTransformerSpawner<_ArrTransType>

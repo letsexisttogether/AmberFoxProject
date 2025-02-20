@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ArrayTransformerSpawner.hpp"
-#include "ArrayTransformers/ArrayDistinctor.hpp"
+#include "Transform/ArrayDistinctor.hpp"
 
 template <class _ArrTransType>
 class ArryDistinctorSpawner : public ArrayTransformerSpawner<_ArrTransType>

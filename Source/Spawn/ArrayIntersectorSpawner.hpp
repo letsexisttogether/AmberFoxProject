@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ArrayTransformerSpawner.hpp"
-#include "ArrayTransformers/ArrayIntersector.hpp"
+#include "Transform/ArrayIntersector.hpp"
 
 template <class _ArrTransType>
 class ArrayIntersectorSpawner : public ArrayTransformerSpawner<_ArrTransType>

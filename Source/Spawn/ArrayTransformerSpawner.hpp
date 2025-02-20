@@ -1,9 +1,6 @@
 #pragma once
 
-#include <memory>
-#include <vector>
-
-#include "ArrayTransformers/ArrayTransformer.hpp"
+#include "Transform/ArrayTransformer.hpp"
 
 template <class _ArrTransType>
 class ArrayTransformerSpawner
