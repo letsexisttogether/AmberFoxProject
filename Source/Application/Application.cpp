@@ -31,7 +31,7 @@ bool Application::ReadTask() noexcept
 { 
     if (!m_FileReader.DoesFileExist())
     {
-        std::cerr << "[Erorr] Specified file \"" 
+        std::cerr << "[Error] Specified file \"" 
             << m_FileReader.GetFileName() << "\" does not exist" << std::endl;
 
         return false;

@@ -1,5 +1,6 @@
 #include "FileReader.hpp"
 
+#include <iostream>
 #include <fstream>
 #include <regex>
 
@@ -13,7 +14,6 @@ bool FileReader::DoesFileExist() const noexcept
 
     return file.good();
 }
-
 
 FileReader::ArrayCollection FileReader::ReadFile() noexcept
 {
@@ -29,7 +29,12 @@ FileReader::ArrayCollection FileReader::ReadFile() noexcept
     {
         if (!line.empty())
         {
-            arrayCollection.push_back(ParseLine(line));        
+            const Array array{ ParseLine(line) };
+
+            if (!array.empty())
+            {
+                arrayCollection.push_back(std::move(array));
+            }
         }
     }
 
@@ -53,7 +58,19 @@ FileReader::Array FileReader::ParseLine(const std::string& line)
 
     for (; iter != end; ++iter)
     {
-        array.push_back(std::stoi(iter->str()));
+        const std::string possibleNumber{ iter->str() };
+
+        try
+        {
+            const Type value = std::stoi(possibleNumber);
+            array.push_back(std::stoi(iter->str()));
+        }
+        catch(...)
+        {
+            std::cerr << "[Error] One of the arrays "
+                "contained non-integer values" << std::endl;
+            return {};
+        }
     }
 
     return array;

@@ -9,7 +9,8 @@ class FileReader
 public:
     using FileName = std::string;
 
-    using Array = ArrayTransformer<std::int32_t>::Array;
+    using Type = std::int32_t;
+    using Array = ArrayTransformer<Type>::Array;
     using ArrayCollection = std::vector<Array>;
 
 public:
