@@ -71,7 +71,7 @@ typename ArrayIntersectorSpawner<_ArrTransType>::ArrayCollectionConstIterator
     for (ArrayCollectionConstIterator iter{ collection.begin() + 1 };
         iter != collection.end(); ++iter)
     {
-        if (shortest->get().size() < iter->get().size())
+        if (shortest->get().size() > iter->get().size())
         {
             shortest = iter;
             wasChanged = true;

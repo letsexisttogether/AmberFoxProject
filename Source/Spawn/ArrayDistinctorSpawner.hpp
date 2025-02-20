@@ -4,29 +4,29 @@
 #include "Transform/ArrayDistinctor.hpp"
 
 template <class _ArrTransType>
-class ArryDistinctorSpawner : public ArrayTransformerSpawner<_ArrTransType>
+class ArrayDistinctorSpawner : public ArrayTransformerSpawner<_ArrTransType>
 {
 public:
     ATSUsings;
 
 public:
-    ArryDistinctorSpawner() = delete;
-    ArryDistinctorSpawner(const ArrayCollection& collection);
+    ArrayDistinctorSpawner() = delete;
+    ArrayDistinctorSpawner(const ArrayCollection& collection);
 
-    ~ArryDistinctorSpawner() = default;
+    ~ArrayDistinctorSpawner() = default;
 
     ArrTrans* GetArrayTransformer() noexcept override;
 };
 
 template <class _ArrTransType>
-ArryDistinctorSpawner<_ArrTransType>::ArryDistinctorSpawner
+ArrayDistinctorSpawner<_ArrTransType>::ArrayDistinctorSpawner
     (const ArrayCollection& collection)
     : Base{ collection }
 {}
 
 template <class _ArrTransType>
-typename ArryDistinctorSpawner<_ArrTransType>::ArrTrans*
-    ArryDistinctorSpawner<_ArrTransType>::GetArrayTransformer()
+typename ArrayDistinctorSpawner<_ArrTransType>::ArrTrans*
+    ArrayDistinctorSpawner<_ArrTransType>::GetArrayTransformer()
     noexcept
 {
     ArrTrans* arrayTransformer = new ArrayDistinctor<_ArrTransType> 
