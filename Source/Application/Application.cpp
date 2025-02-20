@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include "Read/FileReader.hpp"
 #include "Spawn/ArraySorterSpawner.hpp"
 #include "Spawn/ArrayIntersectorSpawner.hpp"
 #include "Spawn/ArrayDistinctorSpawner.hpp"
@@ -28,13 +29,19 @@ bool Application::ReadTask() noexcept
 { 
     if (!m_FileReader.DoesFileExist())
     {
-        std::cerr << "Specified file does not exist" << std::endl;
+        std::cerr << "[Erorr] Specified file \"" 
+            << m_FileReader.GetFileName() << "\" does not exist" << std::endl;
 
         return false;
     }
 
     m_RawCollection = m_FileReader.ReadFile();
     m_Collection.reserve(m_RawCollection.size());
+
+    if (m_Collection.size() != 3)
+    {
+        std::cerr << "[Error] The number of the arrays must be 3" << std::endl;
+    }
     
     std::cout << "\nThe next arrays were found:\n";
     for (const Array& array : m_RawCollection)
@@ -49,7 +56,7 @@ bool Application::ReadTask() noexcept
 
 void Application::SortTask() const noexcept
 {
-    std::cout << "\nTask #1. Sorting the arrays\n";
+    std::cout << "\nTask #1. Sorting the arrays.\n";
 
     std::unique_ptr<ArrayTransformerSpawner> sorterSpawner 
     {
@@ -65,36 +72,41 @@ void Application::SortTask() const noexcept
 
         const Array array{ sorter->ExecuteTransformation() };
 
-        CollectionPrinter::PrintArray(array);
+        const std::string message{ std::to_string(i + 1) + ". " };
+        CollectionPrinter::PrintArray(array, message);
     }
     std::cout << std::endl;
 }
 
 void Application::IntersectTask() const noexcept
 {
-    std::cout << "\nTask #2. Finding the intersection of the arrays\n";
+    std::cout << "\nTask #2. Finding the intersection of the arrays.\n";
 
     std::unique_ptr<ArrayTransformerSpawner> intersectorSpawner 
     {
         new ArrayIntersectorSpawner<Type>{ m_Collection }
     };
 
-    for (std::uint8_t i = 0; i < 2; ++i)
+    std::unique_ptr<ArrayTransformer> longestArraysIntersector 
     {
-        std::unique_ptr<ArrayTransformer> intersector 
-        {
-            intersectorSpawner->GetArrayTransformer()
-        };
+        intersectorSpawner->GetArrayTransformer()
+    };
+    const Array firstArray{ longestArraysIntersector->ExecuteTransformation() };
+    CollectionPrinter::PrintArray(firstArray, "Longest two arrays: ");
 
-        const Array array{ intersector->ExecuteTransformation() };
-        CollectionPrinter::PrintArray(array);
-    }
+    std::unique_ptr<ArrayTransformer> allArraysIntersector
+    {
+        intersectorSpawner->GetArrayTransformer()
+    };
+    const Array secondArray{ allArraysIntersector->ExecuteTransformation() };
+    CollectionPrinter::PrintArray(secondArray, "All arrays: ");
+
     std::cout << std::endl;
 }
 
 void Application::DistinctTask() const noexcept
 {
-    std::cout << "\nTask #3. Combining disctint values of the arrays\n";
+    std::cout << "\nTask #3. Combining distinct values of the arrays.\n";
 
     std::unique_ptr<ArrayTransformerSpawner> distinctorSpawner 
     {
@@ -107,7 +119,13 @@ void Application::DistinctTask() const noexcept
     };
 
     const Array array{ distinctor->ExecuteTransformation() };
-    CollectionPrinter::PrintArray(array);
+    CollectionPrinter::PrintArray(array, "One copy of each value: ");
 
     std::cout << std::endl;
+}
+
+
+void Application::PrintGreetings() const noexcept
+{
+
 }

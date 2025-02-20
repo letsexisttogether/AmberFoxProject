@@ -26,6 +26,8 @@ public:
 
     bool DoesFileExist() const noexcept;
 
+    const FileName& GetFileName() const noexcept;
+
     FileReader& operator = (const FileReader&) = default;
     FileReader& operator = (FileReader&&) = default;
 

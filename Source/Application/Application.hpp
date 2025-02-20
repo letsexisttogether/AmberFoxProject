@@ -39,6 +39,8 @@ private:
     void IntersectTask() const noexcept;
     void DistinctTask() const noexcept;
 
+    void PrintGreetings() const noexcept;
+
 private:
     FileReader m_FileReader;
 

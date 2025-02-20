@@ -36,6 +36,12 @@ FileReader::ArrayCollection FileReader::ReadFile() noexcept
     return arrayCollection;
 }
 
+
+const FileReader::FileName& FileReader::GetFileName() const noexcept
+{
+    return m_FileName;
+}
+
 FileReader::Array FileReader::ParseLine(const std::string& line)
 {
     Array array{};

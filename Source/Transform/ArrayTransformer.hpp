@@ -7,7 +7,7 @@ template <class _Type>
 class ArrayTransformer
 {
     static_assert(std::is_arithmetic_v<_Type>, 
-        "The array should be of an arithmetic type");
+        "The array must be of an arithmetic type");
 
 public:
     using Array = std::vector<_Type>;
