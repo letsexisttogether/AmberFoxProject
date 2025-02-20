@@ -1,4 +1,7 @@
-set(PROJECT_SOURCES Main.cpp)
+set(PROJECT_SOURCES Main.cpp
+    Read/FileReader.cpp
+    Application/Application.cpp
+)
 
 target_sources(${PROJECT_NAME}
     PRIVATE ${PROJECT_SOURCES})

@@ -1,56 +1,14 @@
-#include <functional>
 #include <iostream>
+#include <cstdlib>
+#include <functional>
 
-#include "ArrayTransformers/ArraySorter.hpp"
-#include "ArrayTransformers/ArrayIntersector.hpp"
-#include "Spawn/ArrayIntersectorSpawner.hpp"
-#include "ArrayTransformers/ArrayDistinctor.hpp"
-#include "Spawn/ArraySorterSpawner.hpp"
-#include "Spawn/ArrayDistinctorSpawner.hpp"
+#include "Application/Application.hpp"
 
 std::int32_t main(std::int32_t argc, char** argv)
 {
-    std::cout << "Hello, AmberFoxStudio" << std::endl;
+    const std::string fileName{ ((argc > 1) ? (argv[1]) : ("Arrays.txt")) };
 
-    using Type = std::int32_t;
-    using Array = std::vector<Type>;
+    Application application{ FileReader{ fileName } };
 
-    const Array small 
-    {
-        5, 1, 3, 2, 6, 1, 4
-    };
-    const Array mid 
-    {
-        10, 3, 150, 308, 11, 1
-    };
-    const Array big 
-    {
-        600, 300, 5, 1500, 1, 17, 2000, 3, 17000
-    };
-
-    ArrayTransformerSpawner<Type>::ArrayCollection collection
-    {
-        small, mid, big
-    };
-
-    std::unique_ptr<ArrayTransformerSpawner<Type>> spawner
-    {
-        new ArryDistinctorSpawner<Type>{ collection }
-    };
-
-    std::unique_ptr<ArrayTransformer<Type>> distinctor
-    {
-        spawner->GetArrayTransformer()
-    };
-
-    const auto array{ distinctor->ExecuteTransformation() };
-
-    for (const Type& value : array)
-    {
-        std::cout << value << ' ';
-    }
-
-    std::cout << std::endl;
-
-    return EXIT_SUCCESS;
+    return application.Run();
 }
